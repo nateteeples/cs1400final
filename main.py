@@ -1,7 +1,6 @@
 from numpy import array
-from rooms import rooms
+from rooms import rooms, MOVEMENTS
 
-MOVEMENTS = {'north': array([0, 1, 0]), 'south': array([0, -1, 0]), 'east': array([-1, 0, 0]), 'west': array([1, 0, 0]), 'up': array([0, 0, 1]), 'down': array([0, 0, -1])}
 VALID_ACTIONS = ('save', 'load', 'move', 'get', 'use', 'help')
 
 class Player():
@@ -9,7 +8,7 @@ class Player():
 		self.pos = (0, 0, 0)
 		self.inv = []
 		self.name = input("Input your name:\n").title()
-	def move(self, movement):
+	def set_move(self, movement):
 		self.pos = tuple(array(self.pos)+MOVEMENTS.get(movement,array([0,0,0])))
 	def get_input(self):
 		choice = input("Input one of the following commands:\nmove, get, use, save, load, help").lower()
@@ -20,15 +19,16 @@ class Player():
 
 def main(player):
 	cmd = None
+	current_room = rooms.get(player.pos)
 	while cmd != 'quit':
 		#add room desc
 		cmd = get_input()
 		if cmd == 'quit':
-			print('')
+			print('Thanks for Playing!')
 		elif cmd == 'move':
-			pass
+			current_room.move(player)
 		elif cmd == 'get':
-			pass
+			current_room.get(player)
 		elif cmd == 'use':
 			pass
 		elif cmd == 'save':
