@@ -1,7 +1,7 @@
 from numpy import array
 from rooms import rooms, MOVEMENTS
 
-VALID_ACTIONS = ('save', 'load', 'move', 'get', 'use', 'help')
+VALID_ACTIONS = ('save', 'load', 'move', 'get', 'use', 'help', 'quit')
 
 class Player():
 	def __init__(self):
@@ -11,18 +11,18 @@ class Player():
 	def set_move(self, movement):
 		self.pos = tuple(array(self.pos)+MOVEMENTS.get(movement,array([0,0,0])))
 	def get_input(self):
-		choice = input("Input one of the following commands:\nmove, get, use, save, load, help").lower()
+		choice = input("Input one of the following commands:\nmove, get, use, save, load, help, quit\n").lower()
 		while choice not in VALID_ACTIONS:
 			print(f"'{choice}' is not a valid command")
-			choice = input("Input one of the following commands:\nmove, get, use, save, load, help").lower()
+			choice = input("Input one of the following commands:\nmove, get, use, save, load, help, quit\n").lower()
 		return choice
 
 def main(player):
 	cmd = None
-	current_room = rooms.get(player.pos)
 	while cmd != 'quit':
-		#add room desc
-		cmd = get_input()
+		current_room = rooms.get(player.pos)
+		print(current_room.desc())
+		cmd = player.get_input()
 		if cmd == 'quit':
 			print('Thanks for Playing!')
 		elif cmd == 'move':
@@ -30,7 +30,7 @@ def main(player):
 		elif cmd == 'get':
 			current_room.get(player)
 		elif cmd == 'use':
-			pass
+			current_room.use(player)
 		elif cmd == 'save':
 			pass
 		elif cmd == 'load':
