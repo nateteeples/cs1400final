@@ -59,17 +59,20 @@ class Room():
 
 rooms = {}
 r = Room()
-r.items.append('sword')
 r.items.append('key')
-r.usable['key'] = "You can use the key to unlock the large door"
-r.descriptions[(('sword', 'key'), ('key',))] = "You enter a room with a large door and a keyhole. On the ground lies a sword and a key."
-r.descriptions[(('sword',), ())] = "You open the door using the key. You can now move north. On the groud lies a sword."
-r.descriptions[((), ())] = "You open the door using the key. You can now move north."
+r.descriptions[(('key',), ())] = "You enter a large room with a key on the ground."
+r.descriptions[((), ())] = "You enter a large, empty room."
 r.movements.append('up')
+r.movements.append('north')
 rooms[(0, 0, 0)] = r
 
 r = Room()
-r.items.append("test1")
+r.items.append("sword")
+r.usable['key'] = "You can use the key to unlock the large door"
+r.descriptions[(('sword',), ('key',))] = "You enter a room with a sword on the ground and a large door with a keyhole."
+r.descriptions[(('sword'), ())] = "You open the door using the key. You can now move north. A sword lies on the ground."
+r.descriptions[((), ('key',))] = "You enter a room with a large door and a keyhole."
+r.descriptions[((), ())] = "You open the door using the key. You can now move north."
 r.movements.append('south')
 rooms[(0, 1, 0)] = r
 
@@ -77,3 +80,8 @@ r = Room()
 r.items.append("test2")
 r.movements.append('down')
 rooms[(0, 0, 1)] = r
+
+r = Room()
+r.items.append("test3")
+r.movements.append('south')
+rooms[(0, 2, 0)] = r

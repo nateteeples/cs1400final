@@ -1,3 +1,4 @@
+import pickle
 from numpy import array
 from rooms import rooms, MOVEMENTS
 
@@ -17,6 +18,26 @@ class Player():
 			choice = input("Input one of the following commands:\nmove, get, use, save, load, help, quit\n").lower()
 		return choice
 
+def save():
+	with open("save.bin", "wb") as save:
+		pickle.dump(player, save)
+		pickle.dump(rooms, save)
+		pickle.dump(player.pos, save)
+		print("Your progress has been saved")
+
+def load():
+	global player
+	global rooms
+	try:
+		with open("save.bin", "rb") as save:
+			player = pickle.load(save)
+			rooms = pickle.load(save)
+			player.pos = pickle.load(save)
+			print("Progress successfully loaded")
+	except FileNotFoundError:
+		print("A save file was not found")
+
+player = Player()
 def main(player):
 	cmd = None
 	while cmd != 'quit':
@@ -32,10 +53,11 @@ def main(player):
 		elif cmd == 'use':
 			current_room.use(player)
 		elif cmd == 'save':
-			pass
+			save()
 		elif cmd == 'load':
-			pass
+			load()
 		elif cmd == 'help':
-			pass
+			#debug, change later
+			print(player.pos)
 
-main(Player())
+main(player)
