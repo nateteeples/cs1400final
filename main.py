@@ -14,7 +14,7 @@ class Player():
 	def get_input(self):
 		choice = input("Input one of the following commands:\nmove, get, use, save, load, help, quit\n").lower()
 		while choice not in VALID_ACTIONS:
-			print(f"'{choice}' is not a valid command")
+			print(f"\n\n'{choice}' is not a valid command")
 			choice = input("Input one of the following commands:\nmove, get, use, save, load, help, quit\n").lower()
 		return choice
 
