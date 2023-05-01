@@ -46,7 +46,9 @@ def main(player):
 	while cmd != 'quit':
 		current_room = rooms.get(player.pos)
 		(row, index) = current_room.mposition
-		map.Map().output_map(row, index)
+		tempmap = map.Map()
+		tempmap.output_map(row, index)
+		del tempmap
 		print(current_room.desc())
 		cmd = player.get_input()
 		if cmd == 'quit':
