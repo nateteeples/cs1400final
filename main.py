@@ -1,4 +1,5 @@
 import pickle
+import map
 from numpy import array
 from rooms import rooms, MOVEMENTS
 
@@ -44,6 +45,8 @@ def main(player):
 	cmd = None
 	while cmd != 'quit':
 		current_room = rooms.get(player.pos)
+		(row, index) = current_room.mposition
+		map.Map().output_map(row, index)
 		print(current_room.desc())
 		cmd = player.get_input()
 		if cmd == 'quit':

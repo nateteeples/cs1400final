@@ -8,6 +8,7 @@ class Room():
 		self.usable = {}
 		self.movements = []
 		self.descriptions = {}
+		self.mposition = (0, 0)
 	def move(self, player):
 		print(f"You can move in one of the following directions:\n{self.movements}")
 		player_movement = input(f"Input a movement: ")
@@ -61,6 +62,7 @@ rooms = {}
 r = Room()
 r.descriptions[((), ())] = "You enter a field with an abandoned house to the north."
 r.movements.append('north')
+r.mposition = (16, 7)
 rooms[(0, 0, 0)] = r
 
 r = Room()
@@ -68,6 +70,7 @@ r.items.append("key")
 r.descriptions[(('key',), ())] = "You enter the house, and the door slams behind you, appearing to be stuck. Inside is a large spiral staircase to the north, with branching rooms on each side of the staircase. A key lies on a table by the door."
 r.descriptions[((), ())] = "You enter the house, and the door slams behind you, appearing to be stuck. Inside is a large spiral staircase to the north, with branching rooms on each side of the staircase."
 r.movements.append('north')
+r.mposition = (13, 7)
 rooms[(0, 1, 0)] = r
 
 r = Room()
@@ -75,18 +78,21 @@ r.descriptions[((), ())] = "There are rooms on each side of the staircase. The s
 r.movements.append('west')
 r.movements.append('east')
 r.movements.append('up')
+r.mposition = (10, 7)
 rooms[(0, 2, 0)] = r
 
 r = Room()
 r.descriptions[((), ())] = "You walk into the dining room. There is a large table surrounded by broken chairs and shards of dishes scattered on the floor. To the north there is a kitchen."
 r.movements.append('north')
 r.movements.append('east')
+r.mposition = (10, 4)
 rooms[(-1, 2, 0)] = r
 
 r = Room()
 r.descriptions[((), ())] = "You walk into the kitchen. Broken cabinets hang on the walls, and the flooring is covered in dust and dirt. To the north is a hallway."
 r.movements.append('north')
 r.movements.append('south')
+r.mposition = (7, 4)
 rooms[(-1, 3, 0)] = r
 
 r = Room()
@@ -94,6 +100,7 @@ r.descriptions[((), ())] = "The hall branches north and west, with a door at eac
 r.movements.append('north')
 r.movements.append('south')
 r.movements.append('west')
+r.mposition = (4, 4)
 rooms[(-1, 4, 0)] = r
 
 r = Room()
@@ -101,11 +108,13 @@ r.usable['safe-code'] = "You key in the safe code on the safe."
 r.descriptions[((), ('safe-code'))] = "You enter the master bedroom. There is a large, empty mattress in the center of the room. On a bedside table lies a safe."
 r.descriptions[((), ())] = "The safe clicks open. Inside is a knife."
 r.movements.append('east')
+r.mposition = (4, 1)
 rooms[(-2, 4, 0)] = r
 
 r = Room()
 r.descriptions[((), ())] = "You enter an empty bedroom."
 r.movements.append('south')
+r.mposition = (1, 4)
 rooms[(-1, 5, 0)] = r
 
 r = Room()
@@ -113,11 +122,13 @@ r.descriptions[((), ())] = "You enter the living room. Trash clutters the floor,
 r.movements.append('east')
 r.movements.append('west')
 r.movements.append('south')
+r.mposition = (10, 10)
 rooms[(1, 2, 0)] = r
 
 r = Room()
 r.descriptions[((), ())] = "You enter a dirty bathroom."
 r.movements.append('north')
+r.mposition = (13, 10)
 rooms[(1, 1, 0)] = r
 
 r = Room()
@@ -125,6 +136,7 @@ r.items.append('book')
 r.descriptions[(('book',), ())] = "You enter a bedroom. The room appears well kept, with a single book lying on a bed."
 r.descriptions[((), ())] = "You enter a bedroom. The room appears well kept, with a clean bed against the wall."
 r.movements.append('north')
+r.mposition = (13, 13)
 rooms[(2, 1, 0)] = r
 
 r = Room()
@@ -133,6 +145,7 @@ r.descriptions[((), ('key',))] = "In the hall is a staircase and a locked door."
 r.descriptions[((), ())] = "In the hall is a staircase and an open door to the south."
 r.movements.append('east')
 r.movements.append('up')
+r.mposition = (10, 13)
 rooms[(2, 2, 0)] = r
 
 #template rooms
