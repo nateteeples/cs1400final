@@ -3,6 +3,7 @@ from numpy import array
 from rooms import rooms, MOVEMENTS
 
 VALID_ACTIONS = ('save', 'load', 'move', 'get', 'use', 'help', 'quit')
+restart = False
 
 class Player():
 	def __init__(self):
@@ -39,6 +40,7 @@ def load():
 
 player = Player()
 def main(player):
+	global restart
 	cmd = None
 	while cmd != 'quit':
 		current_room = rooms.get(player.pos)
@@ -55,9 +57,15 @@ def main(player):
 		elif cmd == 'save':
 			save()
 		elif cmd == 'load':
-			load()
+			restart = True
+			break
 		elif cmd == 'help':
 			#debug, change later
 			print(player.pos)
 
 main(player)
+
+if restart:
+	load()
+	restart = False
+	main(player)
