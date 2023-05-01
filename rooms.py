@@ -125,7 +125,7 @@ r.items.append('book')
 r.descriptions[(('book',), ())] = "You enter a bedroom. The room appears well kept, with a single book lying on a bed."
 r.descriptions[((), ())] = "You enter a bedroom. The room appears well kept, with a clean bed against the wall."
 r.movements.append('north')
-rooms[(1, 1, 0)] = r
+rooms[(2, 1, 0)] = r
 
 r = Room()
 r.usable['key'] = "You use the key to unlock the door."
