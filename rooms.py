@@ -65,7 +65,7 @@ rooms[(0, 0, 0)] = r
 
 r = Room()
 r.items.append("key")
-r.descriptions[(('key',), ())] = "You enter the house, and the door slams behind you, appearing to be stuck. Inside is a large spiral staircase to the north, with branching rooms on each side of the staircase. A key lies on a table by the door.
+r.descriptions[(('key',), ())] = "You enter the house, and the door slams behind you, appearing to be stuck. Inside is a large spiral staircase to the north, with branching rooms on each side of the staircase. A key lies on a table by the door."
 r.descriptions[((), ())] = "You enter the house, and the door slams behind you, appearing to be stuck. Inside is a large spiral staircase to the north, with branching rooms on each side of the staircase."
 r.movements.append('north')
 rooms[(0, 1, 0)] = r
