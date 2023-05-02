@@ -21,6 +21,7 @@ class Map():
 	def __init__(self):
 		self.edited_map = floor0map
 	def output_map(self, row, index):
+		self.edited_map = [list(line) for line in floor0map]
 		self.edited_map[row][index] = "X"
 		for line in self.edited_map:
 			linetext = ""
