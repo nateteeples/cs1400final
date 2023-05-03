@@ -9,6 +9,7 @@ class Room():
 		self.movements = []
 		self.descriptions = {}
 		self.mposition = (0, 0)
+		self.win = False
 	def move(self, player):
 		print(f"You can move in one of the following directions:\n{self.movements}")
 		player_movement = input(f"Input a movement: ")
@@ -22,7 +23,7 @@ class Room():
 			print(f"'{player_movement}' is not a valid input.\nValid inputs include north, south, east, west, up, or down")
 	def get(self, player):
 		if self.items:
-			item = input("What item would you like to pick up?\n").lower()
+			item = input(f"What item would you like to pick up?\nRoom Items: {self.items[0]}\n").lower()
 			if item in self.items:
 				self.items.remove(item.lower())
 				player.inv.append(item.lower())
@@ -56,9 +57,18 @@ class Room():
 		#check item type and do corresponding action
 		if item == 'key':
 			self.movements.append('south')
+		if item == 'crowbar':
+			self.movements.append('up')
+		if item == 'knife':
+			self.movements.append('east')
+		if item == 'safe-code':
+			self.items.append("knife")
+		if item == 'gate-key':
+			self.win = True
 		pass
 
 rooms = {}
+#Floor 0
 r = Room()
 r.descriptions[((), ())] = "You enter a field with an abandoned house to the north."
 r.movements.append('north')
@@ -105,8 +115,10 @@ rooms[(-1, 4, 0)] = r
 
 r = Room()
 r.usable['safe-code'] = "You key in the safe code on the safe."
-r.descriptions[((), ('safe-code'))] = "You enter the master bedroom. There is a large, empty mattress in the center of the room. On a bedside table lies a safe."
-r.descriptions[((), ())] = "The safe clicks open. Inside is a knife."
+r.descriptions[(('knife',), ('safe-code',))] = "You enter the master bedroom. There is a large, empty mattress in the center of the room. On a bedside table lies a safe."
+r.descriptions[((), ('safe-code',))] = "You enter the master bedroom. There is a large, empty mattress in the center of the room. On a bedside table lies a safe."
+r.descriptions[(('knife',), ())] = "The safe clicks open. Inside is a knife."
+r.descriptions[((), ())] = "There is a large, empty mattress in the center of the room. On a bedside table lies an empty safe."
 r.movements.append('east')
 r.mposition = (4, 1)
 rooms[(-2, 4, 0)] = r
@@ -143,10 +155,85 @@ r = Room()
 r.usable['key'] = "You use the key to unlock the door."
 r.descriptions[((), ('key',))] = "In the hall is a staircase and a locked door."
 r.descriptions[((), ())] = "In the hall is a staircase and an open door to the south."
-r.movements.append('east')
-r.movements.append('up')
+r.movements.append('west')
+r.movements.append('down')
 r.mposition = (10, 13)
 rooms[(2, 2, 0)] = r
+
+#Floor -1
+r = Room()
+r.descriptions[((), ())] = "You walk down the stairs into a dark cellar. There are paths north and west."
+r.movements.append('north')
+r.movements.append('west')
+r.movements.append('up')
+r.mposition = (10, 13)
+rooms[(2, 2, -1)] = r
+
+r = Room()
+r.items.append('crowbar')
+r.descriptions[(('crowbar',), ())] = "You enter a storage room filled with boxes. On the ground is a crowbar."
+r.descriptions[((), ())] = "You enter a storage room filled with boxes."
+r.movements.append('south')
+r.mposition = (7, 13)
+rooms[(2, 3, -1)] = r
+
+r = Room()
+r.descriptions[((), ())] = "You walk into a hallway. At the end of the hall there is an open door."
+r.movements.append('west')
+r.movements.append('east')
+r.mposition = (10, 10)
+rooms[(1, 2, -1)] = r
+
+r = Room()
+r.items.append('safe-code')
+r.descriptions[(('safe-code',), ())] = "You enter a bedroom. On the bedside table there is a piece of paper with a code written on it."
+r.descriptions[((), ())] = "You enter a bedroom. There is a door to the north."
+r.movements.append('north')
+r.movements.append('east')
+r.mposition = (10, 7)
+rooms[(0, 2, -1)] = r
+
+r = Room()
+r.usable['crowbar'] = "You use the crowbar to open the trapdoor."
+r.descriptions[((), ('crowbar',))] = "Behind the door is a ladder that leads up. The top appears to be covered by a metal trapdoor."
+r.descriptions[((), ())] = "Behind the door is a ladder that leads outside."
+r.movements.append('south')
+r.mposition = (7, 7)
+rooms[(0, 3, -1)] = r
+
+#Floor 0 - Outside
+r = Room()
+r.descriptions[((), ())] = "You climb the ladder and enter the backyard of the house. A path leads north."
+r.movements.append('north')
+r.movements.append('down')
+r.mposition = (7, 7)
+rooms[(0, 3, 0)] = r
+
+r = Room()
+r.win = False
+r.usable['gate-key'] = "You use the key to unlock the gate."
+r.descriptions[((), ('gate-key',))] = "You follow the path which leads to a tall, locked gate. The path continues east."
+r.descriptions[((), ())] = "The gate swings open and you escape the house."
+r.movements.append('south')
+r.movements.append('east')
+r.mposition = (4, 7)
+rooms[(0, 4, 0)] = r
+
+r = Room()
+r.usable['knife'] = "You use the knife to cut the rope."
+r.descriptions[((), ('knife',))] = "You continue down the path into the garden. To the east is a shed with a rope tied around the door handles."
+r.descriptions[((), ())] = "The shed door creaks open."
+r.movements.append('west')
+r.mposition = (4, 10)
+rooms[(1, 4, 0)] = r
+
+r = Room()
+r.items.append('gate-key')
+r.descriptions[(('gate-key',), ())] = "You enter the shed. On a shelf rests a key."
+r.descriptions[((), ())] = "You enter the shed. It's filled with worn lawn tools."
+r.movements.append('west')
+r.mposition = (4, 13)
+rooms[(2, 4, 0)] = r
 
 #template rooms
 r = Room()

@@ -44,12 +44,16 @@ def main(player):
 	global restart
 	cmd = None
 	while cmd != 'quit':
+		(x, y, z) = player.pos
 		current_room = rooms.get(player.pos)
 		(row, index) = current_room.mposition
 		tempmap = map.Map()
-		tempmap.output_map(row, index)
+		tempmap.output_map(row, index, z)
 		del tempmap
 		print(current_room.desc())
+		if current_room.win and current_room.win == True:
+			print("You Win! Thanks for Playing!")
+			break
 		cmd = player.get_input()
 		if cmd == 'quit':
 			print('Thanks for Playing!')
@@ -66,6 +70,7 @@ def main(player):
 			break
 		elif cmd == 'help':
 			#debug, change later
+			player.inv.append("safe-code")
 			print(player.pos)
 
 main(player)
