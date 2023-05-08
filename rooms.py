@@ -15,23 +15,23 @@ class Room():
 		player_movement = input(f"Input a movement: ")
 		if player_movement in MOVEMENTS:
 			if player_movement in self.movements:
-				print(f"Moving {player_movement}")
+				print(f"\nMoving {player_movement}")
 				player.set_move(player_movement)
 			else:
-				print(f"You can't move {player_movement} in this room")
+				print(f"\nYou can't move {player_movement} in this room")
 		else:
-			print(f"'{player_movement}' is not a valid input.\nValid inputs include north, south, east, west, up, or down")
+			print(f"\n'{player_movement}' is not a valid input.\nValid inputs include north, south, east, west, up, or down")
 	def get(self, player):
 		if self.items:
 			item = input(f"What item would you like to pick up?\nRoom Items: {self.items[0]}\n").lower()
 			if item in self.items:
 				self.items.remove(item.lower())
 				player.inv.append(item.lower())
-				print(f"{item.title()} has been added to your inventory")
+				print(f"\n{item.title()} has been added to your inventory")
 			else:
-				print(f"There is no {item} in this room")
+				print(f"\nThere is no {item} in this room")
 		else:
-			print("There are no items in this room")
+			print("\nThere are no items in this room")
 	def use(self, player):
 		if player.inv:
 			print(f"{player.name}'s Inventory:")
@@ -45,11 +45,11 @@ class Room():
 					del self.usable[selection]
 					self.action(selection)
 				else:
-					print(f"You can't use '{selection}' here.")
+					print(f"\nYou can't use '{selection}' here.")
 			else:
-				print(f"'{selection}' was not found in your inventory.")
+				print(f"\n'{selection}' was not found in your inventory.")
 		else:
-			print("Your inventory is empty, no items to use.")
+			print("\nYour inventory is empty, no items to use.")
 	def desc(self):
 		get = tuple(self.items), tuple(self.usable)
 		return "\n\n"+self.descriptions.get(get, "Error - Room description not found")
@@ -77,7 +77,7 @@ rooms[(0, 0, 0)] = r
 
 r = Room()
 r.items.append("key")
-r.descriptions[(('key',), ())] = "You enter the house, and the door slams behind you, appearing to be stuck. Inside is a large spiral staircase to the north, with branching rooms on each side of the staircase. A key lies on a table by the door."
+r.descriptions[(('key',), ())] = "You enter the house and the door slams behind you, appearing to be stuck. Inside is a large spiral staircase to the north, with branching rooms on each side of the staircase. A key lies on a table by the door."
 r.descriptions[((), ())] = "You enter the house, and the door slams behind you, appearing to be stuck. Inside is a large spiral staircase to the north, with branching rooms on each side of the staircase."
 r.movements.append('north')
 r.mposition = (13, 7)
@@ -185,8 +185,6 @@ r.mposition = (10, 10)
 rooms[(1, 2, -1)] = r
 
 r = Room()
-r.items.append('safe-code')
-r.descriptions[(('safe-code',), ())] = "You enter a bedroom. On the bedside table there is a piece of paper with a code written on it."
 r.descriptions[((), ())] = "You enter a bedroom. There is a door to the north."
 r.movements.append('north')
 r.movements.append('east')
@@ -234,6 +232,37 @@ r.descriptions[((), ())] = "You enter the shed. It's filled with worn lawn tools
 r.movements.append('west')
 r.mposition = (4, 13)
 rooms[(2, 4, 0)] = r
+
+#Floor 1
+r = Room()
+r.descriptions[((), ())] = "At the top of the stairs there is a hall with paths branching north and west. Above you is the attic door."
+r.movements.append('north')
+r.movements.append('west')
+r.movements.append('down')
+r.movements.append('up')
+r.mposition = (10, 7)
+rooms[(0, 2, 1)] = r
+
+r = Room()
+r.descriptions[((), ())] = "You enter a dirty bathroom. The floor and wall tiles are cracked."
+r.movements.append('south')
+r.mposition = (7, 7)
+rooms[(0, 3, 1)] = r
+
+r = Room()
+r.items.append('safe-code')
+r.descriptions[(('safe-code',), ())] = "You enter a small bedroom. On the bedside table there is a piece of paper with a code written on it."
+r.descriptions[((), ())] = "You enter a small bedroom."
+r.movements.append('east')
+r.mposition = (10, 4)
+rooms[(-1, 2, 1)] = r
+
+#Floor 2
+r = Room()
+r.descriptions[((), ())] = "You enter the attic. A small light hangs from the ceiling and the room is filled with boxes."
+r.movements.append('down')
+r.mposition = (10, 7)
+rooms[(0, 2, 2)] = r
 
 #template rooms
 r = Room()
