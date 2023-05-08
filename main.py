@@ -13,10 +13,10 @@ class Player():
 	def set_move(self, movement):
 		self.pos = tuple(array(self.pos)+MOVEMENTS.get(movement,array([0,0,0])))
 	def get_input(self):
-		choice = input("┌−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−┐\n│ Input one of the following commands:   │\n│ move, get, use, save, load, help, quit │\n└−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−┘\n\n").lower()
+		choice = input("┌−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−┐\n│ Input one of the following commands:   │\n│ move, get, use, save, load, quit       │\n└−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−┘\n\n").lower()
 		while choice not in VALID_ACTIONS:
 			print(f"\n\n'{choice}' is not a valid command")
-			choice = input("┌−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−┐\n│ Input one of the following commands:   │\n│ move, get, use, save, load, help, quit │\n└−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−┘\n\n").lower()
+			choice = input("┌−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−┐\n│ Input one of the following commands:   │\n│ move, get, use, save, load, quit       │\n└−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−┘\n\n").lower()
 		return choice
 
 def save():
