@@ -34,7 +34,7 @@ class Room():
 			print("\nThere are no items in this room")
 	def use(self, player):
 		if player.inv:
-			print(f"{player.name}'s Inventory:")
+			print(f"Your Inventory:")
 			for item in player.inv:
 				print(f"{item}")
 			selection = input("What item would you like to use?\n").lower()
